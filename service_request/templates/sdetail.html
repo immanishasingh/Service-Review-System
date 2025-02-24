@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'cs' %}">Service Request <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'sr' %}">User Mode<span class="sr-only"></span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row">
+        {% csrf_token %}
+        <!-- <div class="col-md-2"> </div> -->
+        <div class="col-md-3">
+            
+        </div>
+        <div class="col-md-6">
+            <form method="post">
+                <label for="exampleFormControlInput1">Attachment</label>
+                <img src="{{ details.image.url }}" alt="Attachment" width="100%">
+                <div class="form-group">
+                <label for="exampleFormControlInput1">Name</label>
+                <input name="nm" type="text" class="form-control mt-1" id="exampleFormControlInput1"
+                    placeholder="Enter Name" value="{{ details.name }}" disabled>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Service Request Type</label>
+            <select class="form-control mt-1" name="srt" id="exampleFormControlSelect1" disabled>
+                <option>Select Option</option>
+    <option value="Technical Support" {% if details.stype == "Technical Support" %}selected{% endif %}>Technical Support</option>
+    <option value="Billing & Account Support" {% if details.stype == "Billing & Account Support" %}selected{% endif %}>Billing & Account Support</option>
+    <option value="Product/Service Request" {% if details.stype == "Product/Service Request" %}selected{% endif %}>Product/Service Request</option>
+    <option value="General Queries" {% if details.stype == "General Queries" %}selected{% endif %}>General Queries</option>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Service Description</label>
+            <textarea class="form-control mt-1" name="sd" id="exampleFormControlTextarea1" rows="3" readonly>{{ details.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Status</label>
+            <select class="form-control mt-1" name="stat" id="exampleFormControlSelect1">
+                <option value="In Progress" {% if details.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                <option value="Resolved" {% if details.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                <option value="Not Resolved" {% if details.status == "Not Resolved" %}selected{% endif %}>Not Resolved</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Comment</label>
+            <textarea class="form-control mt-1" name="comm" id="exampleFormControlTextarea1" rows="3">{{ details.comment }}</textarea>
+        </div>
+        <input class="btn btn-primary mt-1" type="submit" value="Submit">
+        </form>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
